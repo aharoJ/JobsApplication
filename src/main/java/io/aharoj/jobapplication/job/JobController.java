@@ -1,18 +1,16 @@
 package io.aharoj.jobapplication.job;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import lombok.AllArgsConstructor;
 
 /**
  * JobController
@@ -38,15 +36,27 @@ public class JobController {
   }
 
   @GetMapping("/jobs/{id}")
-  // whatever path variable is passed in the url, it will be passed to the method
   public HttpEntity<Job> getJobById(@PathVariable Long id) {
-    // HttpStatus
     Job job = jobService.getJobById(id);
     if (job != null) {
       return new ResponseEntity<>(job, HttpStatus.OK);
     }
     return new ResponseEntity<>(job, HttpStatus.NOT_FOUND);
-    // return new Job(0L, "Job not found", "Job not found", "0", "0", "0");
   }
+
+  @DeleteMapping("/jobs/{id}")
+  public HttpEntity<String> deleteJob(@PathVariable Long id) {
+    boolean deleted = jobService.deleteJobById(id);
+    if (deleted) {
+      return new ResponseEntity<>("Job Deleted", HttpStatus.OK);
+    }
+    return new ResponseEntity<>("Job Not Found", HttpStatus.NOT_FOUND);
+  }
+  // public HttpEntity<String> deleteJobById(@PathVariable Long id) {
+  // if (jobService.deleteJobById(id)) {
+  // return new ResponseEntity<>("Job deleted succesfully", HttpStatus.OK);
+  // }
+  // return new ResponseEntity<>("Job not found", HttpStatus.NOT_FOUND);
+  // }
 
 }
