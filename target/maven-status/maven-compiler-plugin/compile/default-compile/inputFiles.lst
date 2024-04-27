@@ -1,5 +1,5 @@
-/Users/aharo/desk/spring/jobapplication/src/main/java/io/aharoj/jobapplication/JobapplicationApplication.java
-/Users/aharo/desk/spring/jobapplication/src/main/java/io/aharoj/jobapplication/job/JobService.java
-/Users/aharo/desk/spring/jobapplication/src/main/java/io/aharoj/jobapplication/job/impl/JobServiceImpl.java
-/Users/aharo/desk/spring/jobapplication/src/main/java/io/aharoj/jobapplication/job/JobController.java
-/Users/aharo/desk/spring/jobapplication/src/main/java/io/aharoj/jobapplication/job/Job.java
+/Users/aharo/repositories/jobapplication/src/main/java/io/aharoj/jobapplication/job/JobController.java
+/Users/aharo/repositories/jobapplication/src/main/java/io/aharoj/jobapplication/job/JobService.java
+/Users/aharo/repositories/jobapplication/src/main/java/io/aharoj/jobapplication/job/impl/JobServiceImpl.java
+/Users/aharo/repositories/jobapplication/src/main/java/io/aharoj/jobapplication/job/Job.java
+/Users/aharo/repositories/jobapplication/src/main/java/io/aharoj/jobapplication/JobapplicationApplication.java
