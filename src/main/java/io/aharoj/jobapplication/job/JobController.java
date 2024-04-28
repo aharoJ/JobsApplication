@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -36,6 +38,7 @@ public class JobController {
   }
 
   @GetMapping("/jobs/{id}")
+  // @RequestMapping(value = "/jobs/{id}", method = RequestMethod.GET)
   public HttpEntity<Job> getJobById(@PathVariable Long id) {
     Job job = jobService.getJobById(id);
     if (job != null) {
@@ -48,15 +51,16 @@ public class JobController {
   public HttpEntity<String> deleteJob(@PathVariable Long id) {
     boolean deleted = jobService.deleteJobById(id);
     if (deleted) {
-      return new ResponseEntity<>("Job Deleted", HttpStatus.OK);
+      return new ResponseEntity<>("Job deleted", HttpStatus.OK);
     }
-    return new ResponseEntity<>("Job Not Found", HttpStatus.NOT_FOUND);
+    return new ResponseEntity<>("Job not Found", HttpStatus.NOT_FOUND);
   }
-  // public HttpEntity<String> deleteJobById(@PathVariable Long id) {
-  // if (jobService.deleteJobById(id)) {
-  // return new ResponseEntity<>("Job deleted succesfully", HttpStatus.OK);
-  // }
-  // return new ResponseEntity<>("Job not found", HttpStatus.NOT_FOUND);
-  // }
 
+  @PutMapping("/jobs/{id}")
+  public HttpEntity<String> updateJob(@PathVariable Long id, @RequestBody Job updateJob) {
+    if (jobService.updateJobById(id, updateJob)) {
+      return new ResponseEntity<>("Job updated sucessfully", HttpStatus.ACCEPTED);
+    }
+    return new ResponseEntity<>("Update failed", HttpStatus.NOT_FOUND);
+  }
 }
