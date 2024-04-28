@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class JobController {
+  private JobService jobService;
+
+  // EVC
   public JobController(JobService jobService) {
     this.jobService = jobService;
   }
-
-  private JobService jobService;
 
   @GetMapping("/jobs")
   public ResponseEntity<List<Job>> findAll() {
