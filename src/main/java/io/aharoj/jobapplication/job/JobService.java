@@ -7,6 +7,8 @@ import java.util.List;
  */
 public interface JobService {
 
+  boolean updateJobByID = false;
+
   List<Job> findAll();
 
   void createJob(Job job);
@@ -14,5 +16,7 @@ public interface JobService {
   Job getJobById(Long id);
 
   boolean deleteJobById(Long id);
+
+  boolean updateJobById(Long id, Job updateJob);
 
 }
