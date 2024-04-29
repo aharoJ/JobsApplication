@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import io.aharoj.jobapplication.company.Company;
 import io.aharoj.jobapplication.company.CompanyRepository;
 import io.aharoj.jobapplication.company.CompanyService;
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CompanyServiceIml implements CompanyService {
