@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import io.aharoj.jobapplication.job.Job;
 import io.aharoj.jobapplication.job.JobRepository;
 import io.aharoj.jobapplication.job.JobService;
-import lombok.AllArgsConstructor;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -27,6 +26,12 @@ public class JobServiceImpl implements JobService {
 
   @Override
   public void createJob(Job job) {
+    // // Check if the company exists
+    // Optional<Company> company = companyRepository.findById(job.getCompanyId());
+    // if (!company.isPresent()) {
+    // throw new SomeException("Company with ID " + job.getCompanyId() + " does not
+    // exist.");
+    // }
     jobRepository.save(job);
   }
 
