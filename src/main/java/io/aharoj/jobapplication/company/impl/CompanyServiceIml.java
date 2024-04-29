@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import io.aharoj.jobapplication.company.Company;
 import io.aharoj.jobapplication.company.CompanyRepository;
 import io.aharoj.jobapplication.company.CompanyService;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CompanyServiceIml implements CompanyService {
@@ -44,10 +45,17 @@ public class CompanyServiceIml implements CompanyService {
   }
 
   @Override
-  public void deleteCompany(Long id) {
+  public boolean deleteCompany(Long id) {
+    if (!companyRepository.existsById(id)) {
+      return false;
+    }
     companyRepository.deleteById(id);
+    return true;
   }
 
-
+  @Override
+  public Company getCompanyById(Long id) {
+    return companyRepository.findById(id).orElse(null);
+  }
 
 }
