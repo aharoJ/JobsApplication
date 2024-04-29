@@ -41,8 +41,13 @@ public class CompanyServiceIml implements CompanyService {
   @Override
   public void createCompany(Company company) {
     companyRepository.save(company);
-
-    throw new UnsupportedOperationException("Unimplemented method 'createACompany'");
   }
+
+  @Override
+  public void deleteCompany(Long id) {
+    companyRepository.deleteById(id);
+  }
+
+
 
 }
