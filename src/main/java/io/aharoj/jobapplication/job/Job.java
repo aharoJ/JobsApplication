@@ -1,9 +1,12 @@
 package io.aharoj.jobapplication.job;
 
+import io.aharoj.jobapplication.company.Company;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,4 +32,7 @@ public class Job {
   private String minSalary;
   private String maxSalary;
   private String location;
+
+  @ManyToOne
+  private Company company;
 }
