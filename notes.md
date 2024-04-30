@@ -230,3 +230,83 @@ public ResponseEntity<String> removeCompany(@PathVariable Long id) {
 }
 
 ```
+
+# Challenge Reviews
+
+## Model
+
+private Long id;
+private String title;
+private String description;
+private double rating;
+
+# Api's
+
+- GET /companies/{companyId}/reviews ✅
+- POST /companies/{companyId}/reviews ✅
+- GET /companies/{companyId}/reviews/{reviewId} **hard** ✅
+  > return companyRepository.findById(id).orElse(null);
+- PUT /companies/{companyId}/reviews/{reviewId} ✅
+- DELETE /companies/{companyId}/reviews/{reviewId} ✅
+
+# Acuator
+
+An actuator is a device that controls the operation of a machine or system. In the context of Spring Boot, an actuator is a feature that allows you to monitor and interact with your application. Spring Boot provides a set of built-in actuators that you can use to monitor your application's health, metrics, and other information.
+
+```java
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+  </dependency>
+```
+
+```sh
+http://localhost:8080/actuator
+```
+
+```json
+{
+    "self": {
+      "href": "http://localhost:8080/actuator",
+      "templated": false
+    },
+    "health": {
+      "href": "http://localhost:8080/actuator/health",
+      "templated": false
+    },
+    "health-path": {
+      "href": "http://localhost:8080/actuator/health/{*path}",
+      "templated": true
+    }
+  }
+}
+```
+
+> exposing endpoints (can expose sensitive data)
+
+```java
+# Acutator
+management.endpoints.web.exposure.include=*
+```
+
+## Key Endpoints for Actuator
+
+| Endpoint    | Purpose                                                                                                                                                       |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/health`   | Shows application health information, useful for checking the status of the application, such as database connectivity, disk space, and custom health checks. |
+| `/info`     | Displays arbitrary application information, commonly used to display application version, git commit information, etc.                                        |
+| `/metrics`  | Shows 'metrics' information that allows you to understand the performance and behavior of your running application.                                           |
+| `/loggers`  | Allows you to query and modify the logging level of your application's loggers.                                                                               |
+| `/beans`    | Provides a complete list of all the Spring beans in your application                                                                                          |
+| `/shutdown` | Allows your application to be gracefully shut down                                                                                                            |
+
+### health
+
+This will show the details of the health check, including the status and any additional information.
+```java
+## Info
+info.app.name=Job Application
+info.app.description=Job Application build by aharoJ 
+management.info.env.enabled=true
+```
+
