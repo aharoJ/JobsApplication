@@ -61,4 +61,14 @@ public class ReviewServiceImpl implements ReviewService {
     throw new RuntimeException("Review not found");
   }
 
+  @Override
+  public Review getReview(Long companyId, Long reviewId) {
+    List<Review> reviews = reviewRepository.findByCompanyId(companyId);
+    for (Review review : reviews) {
+      if (review.getId() == reviewId) {
+        return review;
+      }
+    }
+    return null;
+  }
 }
