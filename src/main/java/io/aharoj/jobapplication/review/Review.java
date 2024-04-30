@@ -1,10 +1,22 @@
 package io.aharoj.jobapplication.review;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.aharoj.jobapplication.company.Company;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Review {
   @Id
@@ -14,46 +26,9 @@ public class Review {
   private String description;
   private double rating;
 
-  public Review() {
-  }
-
-  public Review(Long id, String title, String description, double rating) {
-    this.id = id;
-    this.title = title;
-    this.description = description;
-    this.rating = rating;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public double getRating() {
-    return rating;
-  }
-
-  public void setRating(double rating) {
-    this.rating = rating;
-  }
+  // Many reviews can be written for one company
+  @JsonIgnore
+  @ManyToOne()
+  private Company company;
 
 }
