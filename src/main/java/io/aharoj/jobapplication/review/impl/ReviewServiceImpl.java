@@ -2,30 +2,41 @@ package io.aharoj.jobapplication.review.impl;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import io.aharoj.jobapplication.company.Company;
+import io.aharoj.jobapplication.company.CompanyService;
 import io.aharoj.jobapplication.review.Review;
 import io.aharoj.jobapplication.review.ReviewRepository;
 import io.aharoj.jobapplication.review.ReviewService;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
-  private ReviewRepository reviewRepository;
+  private final ReviewRepository reviewRepository;
+
+  private final CompanyService companyService;
 
   // EVC
-  public ReviewServiceImpl(ReviewRepository reviewRepository) {
+  public ReviewServiceImpl(ReviewRepository reviewRepository, CompanyService companyService) {
     this.reviewRepository = reviewRepository;
+    this.companyService = companyService;
   }
 
   @Override
-  public List<Review> getReviews() {
-    return reviewRepository.findAll();
+  public List<Review> getReviews(Long companyId) {
+    List<Review> reviews = reviewRepository.findByCompanyId(companyId);
+    return reviews;
   }
 
   @Override
-  public void createReview(Review review) {
-    reviewRepository.save(review);
+  public boolean addReview(Long companyId, Review review) {
+    Company company = companyService.getCompanyById(companyId);
+    if (company != null) {
+      review.setCompany(company);
+      reviewRepository.save(review);
+      return true;
+    }
+    return false;
   }
 
   @Override
