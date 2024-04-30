@@ -23,7 +23,7 @@ public class ReviewServiceImpl implements ReviewService {
   }
 
   @Override
-  public List<Review> getReviews(Long companyId) {
+  public List<Review> getAllReviews(Long companyId) {
     List<Review> reviews = reviewRepository.findByCompanyId(companyId);
     return reviews;
   }
@@ -45,20 +45,32 @@ public class ReviewServiceImpl implements ReviewService {
   }
 
   @Override
-  public void deleteReview(Long id) {
-    reviewRepository.deleteById(id);
+  public boolean deleteReview(Long companyId, Long reviewId) {
+    if (companyService.getCompanyById(companyId) != null && reviewRepository.existsById(reviewId)) {
+      Review review = reviewRepository.findById(reviewId).orElse(null); // getReview(companyId, reviewId);
+      Company company = review.getCompany(); // then get the company
+      company.getReviews().remove(review); // remove the review from the company
+      review.setCompany(null); // set the review's company to null
+      companyService.updateCompany(companyId, company); // update the company
+      reviewRepository.deleteById(reviewId); // delete the review
+      return true;
+    }
+    return false;
   }
 
   @Override
-  public Review updateReview(Long id, Review review) {
-    Review modifyReview = reviewRepository.findById(id).orElse(null);
-    if (modifyReview != null) {
-      modifyReview.setTitle(review.getTitle());
-      modifyReview.setDescription(review.getDescription());
-      modifyReview.setRating(review.getRating());
-      return reviewRepository.save(modifyReview);
+  public boolean updateReview(Long companyId, Long reviewId, Review review) {
+    if (companyService.getCompanyById(companyId) != null) {
+      Review uppdatedReview = getReview(companyId, reviewId);
+      if (uppdatedReview != null) {
+        uppdatedReview.setTitle(review.getTitle());
+        uppdatedReview.setDescription(review.getDescription());
+        uppdatedReview.setRating(review.getRating());
+        reviewRepository.save(uppdatedReview);
+        return true;
+      }
     }
-    throw new RuntimeException("Review not found");
+    return false;
   }
 
   @Override
@@ -71,4 +83,5 @@ public class ReviewServiceImpl implements ReviewService {
     }
     return null;
   }
+
 }
