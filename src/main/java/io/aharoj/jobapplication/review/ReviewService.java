@@ -3,7 +3,7 @@ package io.aharoj.jobapplication.review;
 import java.util.List;
 
 public interface ReviewService {
-  List<Review> getReviews(Long companyId);
+  List<Review> getAllReviews(Long companyId);
 
   boolean addReview(Long companyId, Review review);
 
@@ -11,7 +11,7 @@ public interface ReviewService {
 
   Review getReviewById(Long id);
 
-  void deleteReview(Long id);
+  boolean deleteReview(Long companyId, Long reviewId);
 
-  Review updateReview(Long id, Review review);
+  boolean updateReview(Long companyId, Long reviewId, Review review);
 }
