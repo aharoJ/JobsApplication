@@ -25,7 +25,7 @@ public class ReviewController {
 
   @GetMapping("/reviews")
   public ResponseEntity<List<Review>> getAllReviews(@PathVariable Long companyId) {
-    return new ResponseEntity<>(reviewService.getReviews(companyId), HttpStatus.OK);
+    return new ResponseEntity<>(reviewService.getAllReviews(companyId), HttpStatus.OK);
   }
 
   @PostMapping("/reviews")
@@ -40,7 +40,6 @@ public class ReviewController {
   @GetMapping("/reviews/{reviewId}")
   public ResponseEntity<Review> getReview(@PathVariable Long companyId, @PathVariable Long reviewId) {
     return new ResponseEntity<>(reviewService.getReview(companyId, reviewId), HttpStatus.OK);
-    // return new ResponseEntity<>(reviewService.getReview(companyId, reviewId),HttpStatus.NOT_FOUND);
   }
 
   @RequestMapping("/{id}")
@@ -52,19 +51,22 @@ public class ReviewController {
     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<String> removeReview(@PathVariable Long id) {
-    reviewService.deleteReview(id);
-    return new ResponseEntity<>("Review removed successfully", HttpStatus.OK);
+  @DeleteMapping("/reviews/{reviewId}")
+  public ResponseEntity<String> removeReview(@PathVariable Long companyId, @PathVariable Long reviewId) {
+    boolean isDeleted = reviewService.deleteReview(companyId, reviewId);
+    if (isDeleted) {
+      return new ResponseEntity<>("Review removed successfully", HttpStatus.OK);
+    }
+    return new ResponseEntity<>("Review NOT found", HttpStatus.NOT_FOUND);
   }
 
-  @PutMapping("/{id}")
-  public ResponseEntity<String> updateReview(@PathVariable Long id, @RequestBody Review review) {
-    try {
-      reviewService.updateReview(id, review);
-      return new ResponseEntity<>("Review updated sucessfully", HttpStatus.OK);
-    } catch (Exception e) {
-      return new ResponseEntity<>("Review updated FAILED", HttpStatus.INTERNAL_SERVER_ERROR);
+  @PutMapping("/reviews/{reviewId}")
+  public ResponseEntity<String> updateReview(@PathVariable Long companyId, @PathVariable Long reviewId,
+      @RequestBody Review review) {
+    boolean isReviewUpdated = reviewService.updateReview(companyId, reviewId, review);
+    if (isReviewUpdated) {
+      return new ResponseEntity<>("Review updated successfully", HttpStatus.OK);
     }
+    return new ResponseEntity<>("Review NOT updated", HttpStatus.NOT_FOUND);
   }
 }
