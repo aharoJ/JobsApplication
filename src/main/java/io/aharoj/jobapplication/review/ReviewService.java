@@ -3,9 +3,9 @@ package io.aharoj.jobapplication.review;
 import java.util.List;
 
 public interface ReviewService {
-  List<Review> getReviews();
+  List<Review> getReviews(Long companyId);
 
-  void createReview(Review review);
+  boolean addReview(Long companyId, Review review);
 
   Review getReviewById(Long id);
 
