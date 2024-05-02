@@ -303,10 +303,70 @@ management.endpoints.web.exposure.include=*
 ### health
 
 This will show the details of the health check, including the status and any additional information.
+
 ```java
 ## Info
 info.app.name=Job Application
-info.app.description=Job Application build by aharoJ 
+info.app.description=Job Application build by aharoJ
 management.info.env.enabled=true
 ```
+
+metrics is a powerful endpoint that provides a lot of information about the application's performance and behavior. It includes information about the JVM, memory usage, garbage collection, and more.
+
+```sh
+http://localhost:8080/actuator/metrics
+```
+
+get one of the properties and paste it
+
+```sh
+http://localhost:8080/actuator/metrics/{property}
+```
+
+example
+
+```sh
+http://localhost:8080/actuator/metrics/jvm.classes.loaded
+```
+
+# Docker
+
+## Docker Container
+
+- code
+- runtime
+- libraries
+- system tools
+
+## Docker Engine
+
+- Docker Daemon
+- Docker API
+- Docker CLI
+
+### CLI
+
+> make sure docker service is up n running
+
+```sh
+./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=aharoj/jobappimage"
+```
+
+sucess:
+```sh 
+[INFO] Successfully built image 'docker.io/aharoj/jobappimage:latest'
+```
+
+push to registry
+
+```sh 
+docker push aharoj/jobappimage
+```
+
+running the image
+
+```sh
+docker run -p 8080:8080 aharoj/jobappimage
+```
+
 
