@@ -46,3 +46,6 @@ dev/
 
 HELP.md
 docker-compose.yaml
+monolithic/monolithic_notes.md
+microservices/microservice_notes.md
+microservices/docker-compose.yml
