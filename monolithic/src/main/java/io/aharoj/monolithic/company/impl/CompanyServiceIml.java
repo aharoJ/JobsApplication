@@ -1,6 +1,5 @@
 package io.aharoj.monolithic.company.impl;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -9,8 +8,6 @@ import org.springframework.stereotype.Service;
 import io.aharoj.monolithic.company.Company;
 import io.aharoj.monolithic.company.CompanyRepository;
 import io.aharoj.monolithic.company.CompanyService;
-
-
 
 @Service
 public class CompanyServiceIml implements CompanyService {
@@ -21,11 +18,13 @@ public class CompanyServiceIml implements CompanyService {
     this.companyRepository = companyRepository;
   }
 
+  // get All the companies available
   @Override
   public List<Company> getAllCompanies() {
     return companyRepository.findAll();
   }
 
+  // update
   @Override
   public boolean updateCompany(Long id, Company company) {
     Optional<Company> companyOption = companyRepository.findById(id);
@@ -59,5 +58,4 @@ public class CompanyServiceIml implements CompanyService {
   public Company getCompanyById(Long id) {
     return companyRepository.findById(id).orElse(null);
   }
-
 }
