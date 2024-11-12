@@ -1,6 +1,5 @@
 package io.aharoj.monolithic.company;
 
-
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CompanyController {
   private CompanyService companyService;
 
-  // EVC 
+  // EVC
   public CompanyController(CompanyService companyService) {
     this.companyService = companyService;
   }
