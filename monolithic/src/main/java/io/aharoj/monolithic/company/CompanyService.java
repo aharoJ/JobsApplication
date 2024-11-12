@@ -1,6 +1,5 @@
 package io.aharoj.monolithic.company;
 
-
 import java.util.List;
 
 public interface CompanyService {
