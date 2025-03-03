@@ -13,12 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.aharoj.job.dto.JobWithCompanyDTO;
 import io.aharoj.job.model.Job;
 import io.aharoj.job.service.JobService;
-
-/**
- * JobController
- */
 
 @RestController
 public class JobController {
@@ -30,7 +27,7 @@ public class JobController {
   }
 
   @GetMapping("/jobs")
-  public ResponseEntity<List<Job>> findAll() {
+  public ResponseEntity<List<JobWithCompanyDTO>> findAll() {
     return ResponseEntity.ok(jobService.findAll());
   }
 

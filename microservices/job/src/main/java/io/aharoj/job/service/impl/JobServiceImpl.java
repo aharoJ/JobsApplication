@@ -1,10 +1,15 @@
 package io.aharoj.job.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import io.aharoj.job.dto.JobWithCompanyDTO;
+import io.aharoj.job.external.Company;
 import io.aharoj.job.model.Job;
 import io.aharoj.job.repository.JobRepository;
 import io.aharoj.job.service.JobService;
@@ -20,18 +25,32 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public List<Job> findAll() {
-    return jobRepository.findAll();
+  public List<JobWithCompanyDTO> findAll() {
+    List<Job> jobs = jobRepository.findAll();
+    List<JobWithCompanyDTO> jobWithCompanyDTOS = new ArrayList<>();
+
+    return jobs.stream()
+        .map(this::convertToDTO)
+        .collect(Collectors.toList());
+
+  }
+
+  private JobWithCompanyDTO convertToDTO(Job job) {
+    JobWithCompanyDTO jobWithCompanyDTO = new JobWithCompanyDTO();
+    jobWithCompanyDTO.setJob(job);
+
+    RestTemplate restTemplate = new RestTemplate();
+    Company company = restTemplate.getForObject(
+        "http://localhost:8081/companies/" + job.getCompanyId(),
+        Company.class);
+
+    jobWithCompanyDTO.setCompany(company);
+    return jobWithCompanyDTO;
+
   }
 
   @Override
   public void createJob(Job job) {
-    // // Check if the company exists
-    // Optional<Company> company = companyRepository.findById(job.getCompanyId());
-    // if (!company.isPresent()) {
-    // throw new SomeException("Company with ID " + job.getCompanyId() + " does not
-    // exist.");
-    // }
     jobRepository.save(job);
   }
 

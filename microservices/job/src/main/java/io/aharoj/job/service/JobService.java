@@ -2,13 +2,14 @@ package io.aharoj.job.service;
 
 import java.util.List;
 
+import io.aharoj.job.dto.JobWithCompanyDTO;
 import io.aharoj.job.model.Job;
 
 public interface JobService {
 
   boolean updateJobByID = false;
 
-  List<Job> findAll();
+  List<JobWithCompanyDTO> findAll();
 
   void createJob(Job job);
 
