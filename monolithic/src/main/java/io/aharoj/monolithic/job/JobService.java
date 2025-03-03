@@ -1,6 +1,5 @@
 package io.aharoj.monolithic.job;
 
-
 import java.util.List;
 
 /**
